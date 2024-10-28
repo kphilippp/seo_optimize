@@ -4,6 +4,7 @@ interface FormProps {
   prompt: string;
   setPrompt: React.Dispatch<React.SetStateAction<string>>;
   handleSubmit: () => void;
+  isLoading: boolean;
 }
 
 const Form: React.FC<FormProps> = (props) => {
@@ -48,6 +49,8 @@ const Form: React.FC<FormProps> = (props) => {
         </div>
         <button
           onClick={props.handleSubmit}
+          id="submitButton"
+          type="button"
           className="bg-[var(--sdBg)] text-white p-2 rounded-md hover:bg-blue-600 transition"
         >
           Submit

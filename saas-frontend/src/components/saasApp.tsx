@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Form from "./form";
 import Results from "./results";
 
@@ -11,16 +11,27 @@ const SaasApp: React.FC = () => {
   const [keywords, setKeywords] = React.useState<string[]>([]);
   const [snippet, setSnippet] = React.useState(``);
   const [hasResults, setHasResults] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSubmit = () => {
+    setIsLoading(true);
     fetch(`${AWS_ENDPOINT_BEFORE}/snippet_keywords?msg=${prompt}`)
       .then((res) => res.json())
       .then((data) => {
         setKeywords(data.keywords);
         setSnippet(data.snippet);
         setHasResults(true);
+        setIsLoading(false);
       });
   };
+
+  useEffect(() => {
+    if (isLoading) {
+      document
+        .getElementById("submitButton")
+        ?.setAttribute("disabled", "disabled");
+    }
+  }, [isLoading]);
 
   return (
     <div
@@ -30,7 +41,12 @@ const SaasApp: React.FC = () => {
           "radial-gradient(100% 100% at 50% 50%, var(--bgG2), var(--bgG1) 50%",
       }}
     >
-      <Form prompt={prompt} setPrompt={setPrompt} handleSubmit={handleSubmit} />
+      <Form
+        prompt={prompt}
+        setPrompt={setPrompt}
+        handleSubmit={handleSubmit}
+        isLoading={isLoading}
+      />
       {hasResults && <Results keywords={keywords} snippet={snippet} />}
     </div>
   );
