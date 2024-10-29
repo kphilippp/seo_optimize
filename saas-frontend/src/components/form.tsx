@@ -47,11 +47,15 @@ const Form: React.FC<FormProps> = (props) => {
             {charCount}/{charLimit}
           </div>
         </div>
+        {props.isLoading
+          ? "bg-[var(--sdBg)] text-white p-2 rounded-md hover:bg-blue-600 transition"
+          : "bg-[var(--sdBg)] text-white p-2 rounded-md hover:bg-blue-600 transition opacity-50"}
         <button
           onClick={props.handleSubmit}
           id="submitButton"
           type="button"
           className="bg-[var(--sdBg)] text-white p-2 rounded-md hover:bg-blue-600 transition"
+          disabled={props.isLoading}
         >
           Submit
         </button>

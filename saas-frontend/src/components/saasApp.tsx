@@ -14,6 +14,7 @@ const SaasApp: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSubmit = () => {
+    console.log("Pressed Submit");
     setIsLoading(true);
     fetch(`${AWS_ENDPOINT_BEFORE}/snippet_keywords?msg=${prompt}`)
       .then((res) => res.json())
@@ -24,14 +25,6 @@ const SaasApp: React.FC = () => {
         setIsLoading(false);
       });
   };
-
-  useEffect(() => {
-    if (isLoading) {
-      document
-        .getElementById("submitButton")
-        ?.setAttribute("disabled", "disabled");
-    }
-  }, [isLoading]);
 
   return (
     <div
