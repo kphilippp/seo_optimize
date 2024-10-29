@@ -54,10 +54,12 @@ const Form: React.FC<FormProps> = (props) => {
           onClick={props.handleSubmit}
           id="submitButton"
           type="button"
-          className="bg-[var(--sdBg)] text-white p-2 rounded-md hover:bg-blue-600 transition"
+          className={`bg-[var(--sdBg)] text-white p-2 rounded-md hover:bg-blue-600 transition ${
+            props.isLoading ? "opacity-50" : ""
+          }`}
           disabled={props.isLoading}
         >
-          Submit
+          {props.isLoading ? "Submit" : "Loading.."}
         </button>
       </div>
     </div>
